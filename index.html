@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariyano Technologies chart task</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sofia+Sans+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="chart.js"></script>
+</head>
+<body onload="loadCharts()">
+    <div class="body-container">
+        <header class="header-container">
+            <nav class="header-wrapper">
+                <div class="container">
+                    <div class="percentage-btn">
+                        <button class="percentage-button">
+                           <p>EUR/USD</p>
+                           <span>+91%</span>
+                        </button>
+                      </div>
+           
+                      <div class="total-prize-display">
+                       <h2>$ 1000.00</h2>
+                      </div>
+                </div>
+               
+            </nav>
+        </header>
+        <div class="container">
+            <section class="graph-container">
+                <div class="graph-container-wrapper">
+                    <section class="graph-content" id="chart-container">
+                       <!-- chart code start -->
+                       
+                       <!-- chart code end -->
+                    </section>
+                    <section class="profit-section">
+                         <div class="profit-wrapper">
+                            <div class="flex">
+                                <!-- ammount -->
+                            <div class="amount-container">
+                                <p class="small-head">Amount:</p>
+                                <input type="text" class="amount-display" value="$500.00">
+                                <div class="button-container">
+                                    <button class="decreament" onclick="decrementAmount()">-</button>
+                                    <button class="increament" onclick="incrementAmount()">+</button>
+                                </div>
+                               
+                            </div>
+
+                            <!-- profit / loss-->
+                            <div class="profit-container">
+                                <p class="small-head">Profit:</p>
+                                <h2>91%</h2>
+                                <span id="profit-loss-display">+$ 455.91</span>
+                            </div>
+                            </div>
+                          
+                            <div class="flex">
+                             <!-- higher -->
+                             <button class="higher-container">
+                                <img src="images/icons8-stock-market-50.png" alt="" width="20" height="20">
+                                <span>Higher</span>
+                            </button>
+
+                             <!-- lower -->
+                             <button class="lower-container">
+                                <img src="images/icons8-decrease-50.png" alt=""  width="20" height="20">
+                                <span>Lower</span>
+                            </button>
+                            </div>
+                           
+                         </div>
+                    </section>
+                </div>
+        
+            </section>
+        </div>
+        
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>
