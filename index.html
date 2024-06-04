@@ -18,12 +18,12 @@
                     <div class="percentage-btn">
                         <button class="percentage-button">
                            <p>EUR/USD</p>
-                           <span>+91%</span>
+                           <span id="final-percentage">+91%</span>
                         </button>
                       </div>
            
                       <div class="total-prize-display">
-                       <h2>$ 1000.00</h2>
+                       <h2 id="total-amount">$ 1000.00</h2>
                       </div>
                 </div>
                
@@ -43,7 +43,7 @@
                                 <!-- ammount -->
                             <div class="amount-container">
                                 <p class="small-head">Amount:</p>
-                                <input type="text" class="amount-display" value="$500.00">
+                                <input type="text" class="amount-display" id="amount-display" value="$500.00">
                                 <div class="button-container">
                                     <button class="decreament" onclick="decrementAmount()">-</button>
                                     <button class="increament" onclick="incrementAmount()">+</button>
@@ -54,7 +54,7 @@
                             <!-- profit / loss-->
                             <div class="profit-container">
                                 <p class="small-head">Profit:</p>
-                                <h2>91%</h2>
+                                <h2 id="profit-loss-percentage">91%</h2>
                                 <span id="profit-loss-display">+$ 455.91</span>
                             </div>
                             </div>
