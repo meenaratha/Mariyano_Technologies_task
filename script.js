@@ -1,62 +1,58 @@
-function loadCharts() {
+function loadCharts(lineColor) {
     console.log('charts..');
 
     const chartOptions = {
         layout: {
-            textColor: '#e0e0e0',
-            background: { type: 'solid', color: 'transparent' }
+            textColor: '#807b7b',
+            background: { type: 'solid', color: 'transparent' } // Set background color to white
         },
         grid: {
             vertLines: {
-                color: '#e0e0e0' // Light grey vertical grid lines
+                color: '#807b7b', // Light grey vertical grid lines
+                width: 3 ,// Increase the width of vertical grid lines
             },
             horzLines: {
-                color: '#e0e0e0' // Light grey horizontal grid lines
+                color: '#807b7b', // Light grey horizontal grid lines
+                width: 3 ,// Increase the width of horizontal grid lines
             }
         }
     };
 
     var chartContainer = document.getElementById('chart-container');
     var chart = LightweightCharts.createChart(chartContainer, chartOptions);
-    var lineSeries = chart.addLineSeries({ color: '#2962FF' });
-
-    var data = [{ value: 48500, time: parseInt(Date.now() / 1000) }];
-    lineSeries.setData(data);
+    var lineSeries = chart.addLineSeries({ 
+        color: '#32ac48', // Line color
+        lineWidth: 3, // Line width
+    });
+    
+    // Add an area series to fill below the line
+    var areaSeries = chart.addAreaSeries({ 
+        topColor: 'rgba(20, 198, 44, 0.4)', // Green shadow color with transparency
+        bottomColor: 'rgba(20, 198, 44, 0.1)', 
+    });
 
     var preValue = 48499;
-    var _currentValue = 30;
-    var _rnd = 1;
     var referenceLine = null;
     var direction = null;
     var initialInvestment = 500;
 
     setInterval(function() {
-        _rnd = Math.floor(Math.random() * 10);
+        var _currentValue = preValue + Math.floor(Math.random() * 7) - 3;
+        
+        // Update line series with new data
+        var newData = { time: parseInt(Date.now() / 1000), value: _currentValue };
+        lineSeries.update(newData);
+        areaSeries.update(newData);
 
-        if (_rnd < 5) {
-            _currentValue = preValue - Math.floor(Math.random() * 3);
-        } else {
-            _currentValue = preValue + Math.floor(Math.random() * 3);
+        
+        // Update line color based on direction
+        if (direction === 'up' && _currentValue > referenceLine) {
+            lineSeries.applyOptions({ color: 'green' });
+        } else if (direction === 'down' && _currentValue < referenceLine) {
+            lineSeries.applyOptions({ color: 'red' });
         }
 
-        lineSeries.update({ value: _currentValue, time: parseInt(Date.now() / 1000) });
-
-        if (direction && referenceLine !== null) {
-            if (direction === 'up') {
-                if (_currentValue > referenceLine) {
-                    lineSeries.applyOptions({ color: 'green' });
-                } else {
-                    lineSeries.applyOptions({ color: 'red' });
-                }
-            } else if (direction === 'down') {
-                if (_currentValue < referenceLine) {
-                    lineSeries.applyOptions({ color: 'green' });
-                } else {
-                    lineSeries.applyOptions({ color: 'red' });
-                }
-            }
-        }
-
+        // Calculate and display profit/loss
         if (referenceLine !== null) {
             let profitLoss = calculateProfitLoss(referenceLine, _currentValue, direction, initialInvestment);
             document.getElementById('profit-loss-display').innerText = `$${profitLoss.toFixed(2)}`;
@@ -67,13 +63,12 @@ function loadCharts() {
 
     window.setDirection = function(dir) {
         direction = dir;
-        referenceLine = _currentValue; // Set the reference line to the current value
+        referenceLine = preValue; // Set the reference line to the current value
         chart.addLineSeries({ // Add a new line series to mark the reference line
             color: dir === 'up' ? 'blue' : 'yellow',
             lineWidth: 2
         }).setData([{ value: referenceLine, time: parseInt(Date.now() / 1000) }]);
     }
-    
 }
 
 function calculateProfitLoss(referenceValue, currentValue, direction, investment) {
