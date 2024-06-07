@@ -64,10 +64,10 @@ function loadCharts(lineColor) {
     }, 1000);
 
     // Resize chart to fit the container
-    window.addEventListener('resize', () => {
-        chart.resize(chartContainer.clientWidth, chartContainer.clientHeight);
-    });
-    chart.resize(chartContainer.clientWidth, chartContainer.clientHeight);
+    // window.addEventListener('resize', () => {
+    //     chart.resize(chartContainer.clientWidth, chartContainer.clientHeight);
+    // });
+    // chart.resize(chartContainer.clientWidth, chartContainer.clientHeight);
 
 }
 
@@ -78,6 +78,8 @@ function getAmountFromInput() {
 
 function setAmountToInput(amount) {
     document.getElementById('amount-display').value = `$${amount.toFixed(2)}`;
+    document.getElementById('total-amount').innerText = `$${amount.toFixed(2)}`;
+
 }
 
 function updateChartWithNewValue(value) {
@@ -96,7 +98,6 @@ function updateProfitLossDisplay(currentValue) {
     const profitLossPercentage = (profitLossValue / initialInvestment) * 100;
 
     document.getElementById('profit-loss-display').innerText = `${profitLossValue >= 0 ? '+' : ''}$${profitLossValue.toFixed(2)}`;
-    document.getElementById('total-amount').innerText = `${profitLossValue >= 0 ? '+' : ''}$${profitLossValue.toFixed(2)}`;
     document.getElementById('profit-loss-percentage').innerText = `${profitLossPercentage.toFixed(2)}%`;
     document.getElementById('final-percentage').innerText = `${profitLossPercentage.toFixed(2)}%`;
 
@@ -116,3 +117,12 @@ function decrementAmount() {
     updateChartWithNewValue(newAmount);
 }
 
+ // Ensure chart responsiveness on window resize
+window.addEventListener('resize', function() {
+    var chartContainer = document.getElementById('chart-container');
+    if (chart && chartContainer) {
+        chart.resize(chartContainer.clientWidth, chartContainer.clientHeight);
+    } else {
+        console.error("Chart or chart container not found.");
+    }
+});
